@@ -16,7 +16,7 @@ class AccountRestController {
     @GetMapping("/{accountId}/alerts")
     Flux<Alert> getAccountAlerts(@PathVariable Integer accountId) {
 		Flux.range(1, 10)
-			.map( { i  -> return new Alert(i, "Alert message"+i) })
+			.map( { i  -> return new Alert(accountId: i, message: "Alert message"+i) })
 			.delayMillis(500)
 			.log();
     }
@@ -24,7 +24,7 @@ class AccountRestController {
 	@GetMapping(value="/{accountId}/alerts/live", produces="text/event-stream")
 	Flux<Alert> getAccountAlertsStreaming(@PathVariable Integer accountId) {
 		Flux.range(1, 50)
-			.map( { i  -> return new Alert(i, "Alert message"+i) })
+			.map( { i  -> return new Alert(accountId: i, message: "Alert message"+i) })
 			.delayMillis(1000)
 			.log();
 	}
